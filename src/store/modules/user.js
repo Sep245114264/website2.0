@@ -1,16 +1,21 @@
-import { login } from '@/api/user';
+/* eslint-disable no-shadow */
+import { login, getInfo } from '@/api/user';
 
 const state = {
   token: 'testToken',
+  roles: [],
   name: '',
 };
 
 const mutations = {
-  SET_TOKEN: (token) => {
+  SET_TOKEN: (state, token) => {
     state.token = token;
   },
-  SET_NAME: (name) => {
+  SET_NAME: (state, name) => {
     state.name = name;
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles;
   },
 };
 
@@ -22,6 +27,19 @@ const actions = {
         .then(({ data }) => {
           commit('SET_TOKEN', data.token);
           resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+  getInfo({ commit }) {
+    return new Promise((resolve, reject) => {
+      getInfo(state.token)
+        .then(({ data }) => {
+          commit('SET_ROLES', data.roles);
+          commit('SET_NAME', data.name);
+          resolve(data);
         })
         .catch((error) => {
           reject(error);

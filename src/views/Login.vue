@@ -1,33 +1,69 @@
 <template>
-  <el-form :data="loginForm">
-    <el-form-item label="用户名" prop="username">
-      <el-input v-model="loginForm.username" />
-    </el-form-item>
-    <el-form-item label="密码" prop="password">
-      <el-input type="password" v-model="loginForm.password" />
-    </el-form-item>
-    <el-button type="primary" @click="handleLogin">登陆</el-button>
-  </el-form>
+  <div class="login-container">
+    <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="loginRules">
+      <el-form-item prop="username">
+        <el-input v-model="loginForm.username" placeholder="用户名" />
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input v-model="loginForm.password" type="password" placeholder="密码" />
+      </el-form-item>
+      <el-button
+        class="login-button"
+        type="primary"
+        :loading="loading"
+        @click.native="handleLogin"
+      >登陆</el-button>
+    </el-form>
+  </div>
 </template>
 
 <script>
+const loginRules = {
+  username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
+  password: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
+};
 export default {
   name: 'login',
   data() {
     return {
+      loading: false,
+      loginRules,
       loginForm: {
-        username: '',
-        password: '',
+        username: 'admin',
+        password: '123',
       },
     };
   },
   methods: {
     handleLogin() {
-      this.$store.dispatch('user/login', this.loginForm)
-        .then(() => {
-          console.log('success');
-        });
+      this.$refs.loginForm.validate((valid) => {
+        if (!valid) {
+          return false;
+        }
+        this.loading = true;
+        this.$store.dispatch('user/login', this.loginForm)
+          .then(() => {
+            this.loading = false;
+            this.$router.push({ name: 'permission' });
+          }).catch(() => {
+            console.log('submit fail');
+          });
+        return true;
+      });
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.login-container {
+  display: flex;
+  .login-form {
+    margin: 0 auto;
+    width: 400px;
+  }
+  .login-button {
+    width: 100%;
+  }
+}
+</style>

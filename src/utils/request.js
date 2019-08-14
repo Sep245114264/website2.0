@@ -1,31 +1,34 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
+import store from '@/store';
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000,
 });
 
-console.log(process.env.VUE_APP_BASE_API);
 service.interceptors.request.use(
   (config) => {
     const axiosConfig = config;
-    axiosConfig.hjaders = { ...config.headers, 'C-Token': 'testToken' };
+    if (store.state.user.token) {
+      axiosConfig.hjaders = { ...config.headers, 'C-Token': 'testToken' };
+    }
     return axiosConfig;
   },
   error => Promise.reject(error),
 );
 
-service.interceptors.response.use(({ data, code, message }) => {
-  const response = data;
+// service.interceptors.response.use(({ data, code, message }) => {
+service.interceptors.response.use(({ data }) => {
+  const { code, message } = data;
   if (code !== 200) {
     Message({
       message: message || 'Error!',
       type: 'error',
     });
-    return Promise.reject(new Error(message || 'error'));
+    return Promise.reject(message || 'error');
   }
-  return response;
+  return data;
 });
 
 export default service;
