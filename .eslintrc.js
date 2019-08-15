@@ -10,6 +10,7 @@ module.exports = {
     'linebreak-style': [0, 'error', 'windows'],
     'import/extensions': 0,
     'no-shadow': ['error', { allow: ['state'] }],
+    'no-lonely-if': [0, 'error'],
   },
   parserOptions: {
     parser: 'babel-eslint',

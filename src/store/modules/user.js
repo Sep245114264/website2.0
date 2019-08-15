@@ -2,7 +2,7 @@
 import { login, getInfo } from '@/api/user';
 
 const state = {
-  token: 'testToken',
+  token: '',
   roles: [],
   name: '',
 };

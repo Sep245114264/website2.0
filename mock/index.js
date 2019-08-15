@@ -34,7 +34,6 @@ Mock.mock(urlMap.login, (req) => {
 });
 
 Mock.mock(urlMap.getInfo, (req) => {
-  console.log(req);
   const token = req.url.split('?')[1].split('=')[1];
   return {
     code: 200,
