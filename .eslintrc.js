@@ -11,6 +11,7 @@ module.exports = {
     'import/extensions': 0,
     'no-shadow': ['error', { allow: ['state'] }],
     'no-lonely-if': [0, 'error'],
+    'import/no-self-import': [0, 'error'],
   },
   parserOptions: {
     parser: 'babel-eslint',

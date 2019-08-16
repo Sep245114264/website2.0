@@ -9,6 +9,7 @@ export const commonRouters = [
   {
     path: '/login',
     name: 'login',
+    hidden: true,
     meta: {
       title: '登录',
     },
@@ -37,7 +38,6 @@ export const commonRouters = [
 ];
 export default new Router({
   mode: 'history',
-  // base: process.env.BASE_URL,
   routes: commonRouters,
 });
 
@@ -48,6 +48,7 @@ export const asyncRouters = [
     redirect: '/permission/page',
     name: '权限测试',
     meta: {
+      title: '权限测试',
       role: ['admin', 'super_editor'],
     },
     children: [
@@ -56,7 +57,17 @@ export const asyncRouters = [
         component: () => import('./views/permission'),
         name: 'permission',
         meta: {
+          title: '页面',
           role: ['admin', 'super_editor'],
+        },
+      },
+      {
+        path: 'role',
+        component: () => import('./views/permission'),
+        name: 'role',
+        meta: {
+          title: '用户',
+          role: ['admin'],
         },
       },
     ],
