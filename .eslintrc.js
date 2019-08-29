@@ -12,6 +12,10 @@ module.exports = {
     'no-shadow': ['error', { allow: ['state'] }],
     'no-lonely-if': [0, 'error'],
     'import/no-self-import': [0, 'error'],
+    'import/prefer-default-export': [0, 'error'],
+    'func-names': [0, 'error'],
+    'global-require': [0, 'error'],
+    'no-underscore-dangle': [0, 'error'],
   },
   parserOptions: {
     parser: 'babel-eslint',

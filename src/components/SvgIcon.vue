@@ -24,7 +24,6 @@ export default {
     },
     iconName() {
       const { icon } = this;
-      console.log(this);
       return `#icon-${icon}`;
     },
   },

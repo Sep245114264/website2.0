@@ -1,6 +1,18 @@
 const path = require('path');
 
 module.exports = {
+  devServer: {
+    proxy: {
+      // [process.env.VUE_APP_BASE_API]: {
+      '/test': {
+        target: 'http://127.0.0.1:8080/mock',
+        pathRewrite: {
+          [`^${process.env.VUE_APP_BASE_API}`]: 'test',
+        },
+      },
+    },
+    after: require('./mock/mock-server'),
+  },
   chainWebpack(config) {
     // 脚手架默认通过file-loader处理svg文件
     // 所以需要先把存放svg icon的文件夹排除在外

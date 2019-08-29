@@ -11,7 +11,7 @@ service.interceptors.request.use(
   (config) => {
     const axiosConfig = config;
     if (store.state.user.token) {
-      axiosConfig.hjaders = { ...config.headers, 'C-Token': 'testToken' };
+      axiosConfig.headers = { ...config.headers, 'C-Token': 'testToken' };
     }
     return axiosConfig;
   },

@@ -6,8 +6,10 @@ import store from './store';
 import 'normalize.css/normalize.css';
 import '@/style/index.scss';
 import 'element-ui/lib/theme-chalk/index.css';
-import '../mock';
+// import { mockXHR } from '../mock/index';
 import '@/icons';
+
+// mockXHR();
 
 Vue.use(Element);
 Vue.config.productionTip = false;

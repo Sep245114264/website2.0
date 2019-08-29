@@ -2,7 +2,8 @@
 import { login, getInfo } from '@/api/user';
 
 const state = {
-  token: 'admin-token',
+  // token: 'admin-token',
+  token: '',
   roles: [],
   name: '',
 };
@@ -24,8 +25,8 @@ const actions = {
     const { username, password } = loginInfo;
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password, commit })
-        .then(({ data }) => {
-          commit('SET_TOKEN', data.token);
+        .then(({ token }) => {
+          commit('SET_TOKEN', token);
           resolve();
         })
         .catch((error) => {

@@ -60,8 +60,9 @@ export default {
           .then(() => {
             this.loading = false;
             this.$router.push({ path: '/dashboard' });
-          }).catch(() => {
-            console.log('submit fail');
+          }).catch((error) => {
+            // console.log('submit fail');
+            console.log(error);
           });
         return true;
       });
