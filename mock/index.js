@@ -1,3 +1,5 @@
+import Mock from 'mockjs';
+
 const userInfo = {
   'admin-token': {
     name: 'qez',
@@ -83,6 +85,48 @@ const mocks = [
         code: 200,
         data: info,
         update: 'successss',
+      };
+    },
+  },
+  {
+    url: '/article/getArticles.*',
+    methods: 'get',
+    response(request) {
+      console.log(request.query);
+      const response = Mock.mock({
+        code: 200,
+        data: {
+          'list|10': [
+            {
+              title: '@ctitle',
+              author: '@cname',
+              createTime: '@datetime',
+              updateTime: '@datetime',
+            },
+          ],
+        },
+      });
+      return response;
+    },
+  },
+  {
+    url: '/upload/image',
+    methods: 'post',
+    response(request) {
+      console.log(request.body);
+      return {
+        code: 200,
+        location: '/test',
+      };
+    },
+  },
+  {
+    url: '/upload/article',
+    methods: 'post',
+    response(request) {
+      return {
+        code: 200,
+        message: 'success',
       };
     },
   },

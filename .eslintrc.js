@@ -16,6 +16,8 @@ module.exports = {
     'func-names': [0, 'error'],
     'global-require': [0, 'error'],
     'no-underscore-dangle': [0, 'error'],
+    'no-unused-expressions': [0, 'errror'],
+    'no-param-reassign': [0, 'error'],
   },
   parserOptions: {
     parser: 'babel-eslint',

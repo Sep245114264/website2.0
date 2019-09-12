@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { login, getInfo } from '@/api/user';
+import userApi from '@/api/user';
 
 const state = {
   // token: 'admin-token',
@@ -11,6 +11,7 @@ const state = {
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token;
+    localStorage.setItem('token', token);
   },
   SET_NAME: (state, name) => {
     state.name = name;
@@ -18,13 +19,19 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles;
   },
+  CLEAR_LOGIN: (state) => {
+    state.token = '';
+    state.roles.length = 0;
+    localStorage.removeItem('token');
+  },
 };
 
 const actions = {
   login({ commit }, loginInfo) {
     const { username, password } = loginInfo;
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password, commit })
+      userApi
+        .login({ username: username.trim(), password, commit })
         .then(({ token }) => {
           commit('SET_TOKEN', token);
           resolve();
@@ -35,8 +42,10 @@ const actions = {
     });
   },
   getInfo({ commit }) {
+    const token = localStorage.getItem('token');
     return new Promise((resolve, reject) => {
-      getInfo(state.token)
+      userApi
+        .getInfo(token)
         .then(({ data }) => {
           commit('SET_ROLES', data.roles);
           commit('SET_NAME', data.name);

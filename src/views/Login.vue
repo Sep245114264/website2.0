@@ -4,7 +4,12 @@
 
     <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="loginRules">
       <el-form-item prop="username">
-        <el-input #prefix v-model="loginForm.username" placeholder="用户名">
+        <el-input
+          #prefix
+          v-model="loginForm.username"
+          placeholder="用户名"
+          @keyup.enter.native="handleLogin"
+        >
           <svg-icon class="svg-container" icon="user" />
         </el-input>
       </el-form-item>
@@ -50,7 +55,6 @@ export default {
   },
   methods: {
     handleLogin() {
-      console.log('enter');
       this.$refs.loginForm.validate((valid) => {
         if (!valid) {
           return false;

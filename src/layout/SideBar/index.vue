@@ -26,11 +26,11 @@ export default {
   },
   computed: {
     permissionRoutes() {
-      console.log(this.$store.state.permission.routes);
+      console.log('permission', this.$store.state.permission.routes);
       return this.$store.state.permission.routes;
     },
     activeMenu() {
-      return this.$route.path;
+      return this.$route.path.split('/').slice(0, 2).join('/');
     },
   },
 };

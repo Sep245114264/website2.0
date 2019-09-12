@@ -3,6 +3,7 @@ import Element from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import api from './api';
 import 'normalize.css/normalize.css';
 import '@/style/index.scss';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -13,27 +14,36 @@ import '@/icons';
 
 Vue.use(Element);
 Vue.config.productionTip = false;
+Vue.prototype.$api = api;
+
+Vue.directive('checkForm', {
+  inserted(el, binding, vNode) {
+    el.addEventListener('change', (event) => {
+      el.value === ''
+        ? (el.className += 'input-error')
+        : el.className.replace('input-error', '').trim();
+    });
+  },
+});
 
 const whiteList = ['/login'];
 router.beforeEach(async (to, from, next) => {
-  console.log(to.path);
-  if (store.state.user.token) {
-    console.log(to.path);
+  const token = localStorage.getItem('token');
+  if (token) {
     if (to.path === '/login') {
       next({ path: '/' });
     } else {
-      if (store.state.user.roles.length === 0) {
+      const { roles } = store.state.user;
+      if (roles.length === 0) {
         try {
-          const { roles } = await store.dispatch('user/getInfo');
-          const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
+          const res = await store.dispatch('user/getInfo');
+          const accessRoutes = await store.dispatch('permission/generateRoutes', res.roles);
           router.addRoutes(accessRoutes);
-          console.log(accessRoutes);
           next({ ...to, replace: true });
         } catch (error) {
           console.log(error);
         }
       } else {
-        console.log(to.path);
         next();
       }
     }
@@ -42,6 +52,7 @@ router.beforeEach(async (to, from, next) => {
       next();
     } else {
       next({ path: '/login' });
+      // next();
     }
   }
 });

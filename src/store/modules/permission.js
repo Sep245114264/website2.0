@@ -17,17 +17,17 @@ function hasPermission(routes, roles) {
  * @param {Array} roles 用户的角色
  */
 function filterAsyncRouters(routes, roles) {
-  console.log('enter');
   const res = [];
-  routes.forEach((route) => {
-    const temp = { ...route };
-    if (hasPermission(route, roles)) {
-      if (temp.children) {
-        temp.children = filterAsyncRouters();
+  routes
+    && routes.forEach((route) => {
+      const temp = { ...route };
+      if (hasPermission(route, roles)) {
+        if (temp.children) {
+          temp.children = filterAsyncRouters(temp.children, roles);
+        }
+        res.push(temp);
       }
-      res.push(temp);
-    }
-  });
+    });
   return res;
 }
 
@@ -41,6 +41,9 @@ const mutations = {
     state.addRoutes = routes;
     state.routes = commonRouters.concat(routes);
   },
+  CLEAR_ROUTES: (state) => {
+    state.routes = commonRouters;
+  },
 };
 
 const actions = {
@@ -50,6 +53,7 @@ const actions = {
       if (roles.includes('admin')) {
         accessRoutes = asyncRouters || [];
       } else {
+        console.log('use');
         accessRoutes = filterAsyncRouters(asyncRouters, roles);
       }
 

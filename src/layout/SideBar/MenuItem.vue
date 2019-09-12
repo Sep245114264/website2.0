@@ -1,6 +1,14 @@
 <template>
   <div v-if="!item.hidden">
-    <template v-if="hasShowChildren(item.children, item)">
+    <template v-if="item.path === '/'">
+      <menu-item
+        v-for="child in item.children"
+        :key="child.path"
+        :item="child"
+        :base-path="item.path"
+      />
+    </template>
+    <template v-else-if="hasShowChildren(item.children, item)">
       <el-menu-item :index="fullPath">{{menuItem.meta.title}}</el-menu-item>
     </template>
     <el-submenu v-else :index="fullPath">
@@ -37,6 +45,7 @@ export default {
   },
   computed: {
     fullPath() {
+      console.log(path.resolve(this.basePath, this.menuItem.path));
       return path.resolve(this.basePath, this.menuItem.path);
     },
   },
