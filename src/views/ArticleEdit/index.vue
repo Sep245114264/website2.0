@@ -100,8 +100,11 @@ export default {
         },
         // images_upload_url: '/upload/image',
         images_upload_handler: (blobInfo, success, failure) => {
-          this.$api.postImage(blobInfo).then((res) => {
-            console.log('success');
+          this.$api.postImage({ base64: blobInfo.base64() }).then((res) => {
+            this.$message({
+              type: 'success',
+              message: '上传成功',
+            });
             success(res.location);
           });
         },

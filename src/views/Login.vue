@@ -33,6 +33,19 @@
         @click.native="handleLogin"
       >登录</el-button>
     </el-form>
+    <el-button type="text" @click="handleRegister">注册</el-button>
+    <el-dialog :visible.sync="visible" title="注册用户">
+      <el-form ref="form" :model="registerData" label-width="80px">
+        <el-form-item prop="username">
+          <el-input v-model="registerData.username" placeholder="用户名" />
+        </el-form-item>
+        <el-form-item label prop="password">
+          <el-input v-model="registerData.password" placeholder="密码" />
+        </el-form-item>
+        <el-button type="primary" @click="submitRegister">注册</el-button>
+        <el-button @click="visible = false">取消</el-button>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -51,9 +64,22 @@ export default {
         username: 'admin',
         password: '123',
       },
+      registerData: {
+        username: '',
+        password: '',
+      },
+      visible: false,
     };
   },
   methods: {
+    submitRegister() {
+      this.$api.postRegister(this.registerData).then((res) => {
+        console.log(res);
+      });
+    },
+    handleRegister() {
+      this.visible = true;
+    },
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (!valid) {

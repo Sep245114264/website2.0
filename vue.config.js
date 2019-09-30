@@ -4,14 +4,20 @@ module.exports = {
   devServer: {
     proxy: {
       // [process.env.VUE_APP_BASE_API]: {
-      '/test': {
-        target: 'http://127.0.0.1:8080/mock',
+      // '/test': {
+      //   target: 'http://127.0.0.1:3000',
+      //   pathRewrite: {
+      //     [`^${process.env.VUE_APP_BASE_API}`]: 'test',
+      //   },
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
         pathRewrite: {
-          [`^${process.env.VUE_APP_BASE_API}`]: 'test',
+          '^/api': '',
         },
       },
     },
-    after: require('./mock/mock-server'),
+    // after: require('./mock/mock-server'),
   },
   chainWebpack(config) {
     // 脚手架默认通过file-loader处理svg文件

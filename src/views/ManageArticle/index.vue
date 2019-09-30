@@ -2,7 +2,7 @@
   <el-card>
     <common-form v-model="queryData" :config="queryConfig">
       <template #back>
-        <el-button>搜索</el-button>
+        <el-button @click="getList">搜索</el-button>
         <el-button type="primary" @click="handleClick('create')">写文章</el-button>
       </template>
     </common-form>

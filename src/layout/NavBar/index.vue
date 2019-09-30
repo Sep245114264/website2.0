@@ -34,7 +34,9 @@ export default {
         logout: () => {
           this.$store.commit('user/CLEAR_LOGIN');
           this.$store.commit('permission/CLEAR_ROUTES');
-          this.$router.push({ name: 'login' });
+          this.$api.logout().then(() => {
+            this.$router.push({ name: 'login' });
+          });
         },
       };
       commandMap[command]();

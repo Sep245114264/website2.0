@@ -12,7 +12,7 @@ export default {
   },
   postImage(data) {
     return request({
-      url: 'upload/image',
+      url: 'http://localhost:3000/upload/image',
       method: 'post',
       data,
     });
@@ -20,9 +20,16 @@ export default {
   postArticle(data) {
     return request({
       // url: 'upload/article',
-      url: 'http://sepveneto.top:3000/upload/article',
+      url: 'http://localhost:3000/upload/article',
       method: 'post',
       data,
     });
   },
+  postRegister(data) {
+    return request({
+      url: '/user/signup',
+      method: 'post',
+      data,
+    });
+  }
 };

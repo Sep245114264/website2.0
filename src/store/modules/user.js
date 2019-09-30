@@ -9,10 +9,6 @@ const state = {
 };
 
 const mutations = {
-  SET_TOKEN: (state, token) => {
-    state.token = token;
-    localStorage.setItem('token', token);
-  },
   SET_NAME: (state, name) => {
     state.name = name;
   },
@@ -20,9 +16,7 @@ const mutations = {
     state.roles = roles;
   },
   CLEAR_LOGIN: (state) => {
-    state.token = '';
     state.roles.length = 0;
-    localStorage.removeItem('token');
   },
 };
 
@@ -32,8 +26,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       userApi
         .login({ username: username.trim(), password, commit })
-        .then(({ token }) => {
-          commit('SET_TOKEN', token);
+        .then(() => {
           resolve();
         })
         .catch((error) => {

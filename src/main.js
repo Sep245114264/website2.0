@@ -28,31 +28,21 @@ Vue.directive('checkForm', {
 
 const whiteList = ['/login'];
 router.beforeEach(async (to, from, next) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    if (to.path === '/login') {
-      next({ path: '/' });
-    } else {
-      const { roles } = store.state.user;
-      if (roles.length === 0) {
-        try {
-          const res = await store.dispatch('user/getInfo');
-          const accessRoutes = await store.dispatch('permission/generateRoutes', res.roles);
-          router.addRoutes(accessRoutes);
-          next({ ...to, replace: true });
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        next();
-      }
-    }
+  if (whiteList.includes(to.path)) {
+    next();
   } else {
-    if (whiteList.includes(to.path)) {
-      next();
+    const { roles } = store.state.user;
+    if (roles.length === 0) {
+      try {
+        const res = await store.dispatch('user/getInfo');
+        const accessRoutes = await store.dispatch('permission/generateRoutes', res.roles);
+        router.addRoutes(accessRoutes);
+        next({ ...to, replace: true });
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      next({ path: '/login' });
-      // next();
+      next();
     }
   }
 });
