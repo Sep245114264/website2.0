@@ -34,10 +34,10 @@
     <el-dialog v-model="visible" title="注册用户">
       <el-form ref="registerForm" :model="registerFormData" label-width="80px">
         <el-form-item prop="username">
-          <el-input v-model:value="registerFormData.username" placeholder="用户名" />
+          <el-input v-model="registerFormData.username" placeholder="用户名" />
         </el-form-item>
         <el-form-item label prop="password">
-          <el-input v-model:value="registerFormData.password" placeholder="密码" />
+          <el-input v-model="registerFormData.password" placeholder="密码" />
         </el-form-item>
         <el-button type="primary" @click="submitRegister">注册</el-button>
         <el-button @click="visible = false">取消</el-button>

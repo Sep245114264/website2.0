@@ -382,18 +382,18 @@ export default {
     border-right: none;
     border-bottom: none;
   }
-  & /deep/ .el-table__row td {
+  &:deep(.el-table__row td) {
     border-right: none;
     padding: 2px 0px;
     // height: 46px;
   }
-  & /deep/ .custom-header {
+  &:deep(.custom-header) {
     background: #f7f7f7 !important;
     color: #333;
     border-bottom: 1px solid #d9d9d9 !important;
     border-right : 1px solid #d9d9d9 !important;
   }
-  & /deep/ td, & /deep/ th.is-leaf {
+  &:deep(td), &:deep(th.is-leaf) {
     border-bottom: 1px solid #d9d9d9 !important;
   }
   &::after, &::before {
@@ -401,7 +401,7 @@ export default {
   }
 }
 .custom-table.current-hover {
-  & /deep/ .el-table__body tr:hover>td {
+  &:deep(.el-table__body tr:hover>td) {
     background-color: transparent;
   }
 }
@@ -409,23 +409,23 @@ export default {
   .wrap-header {
     white-space: pre-wrap !important;
   }
-  & /deep/ .cell {
+  &:deep(.cell) {
     min-height: 23px;
   }
   // & /deep/ .cell > span {
   //   display: inline-block;
   // }
-  & /deep/ .is-select {
+  &:deep(.is-select) {
     background: yellow;
   }
-  & /deep/ .gutter, .custom-header {
+  &:deep(.gutter), .custom-header {
     background: #f5f7fa;
   }
   /* 隐藏表格expand原先的图标 */
-  & /deep/ .custom-icon .el-table__expand-column .el-icon-arrow-right {
+  &:deep(.custom-icon .el-table__expand-column .el-icon-arrow-right) {
     display: none;
   }
-  & /deep/ .custom-icon .el-table__expand-icon {
+  &:deep(.custom-icon .el-table__expand-icon) {
     &::before {
       transition: all .4s;
       content: '';
@@ -451,7 +451,7 @@ export default {
       transform: translate(-50%, -50%);
     }
   }
-  & /deep/ .custom-icon .el-table__expand-icon--expanded {
+  &:deep(.custom-icon .el-table__expand-icon--expanded) {
     transition: all .4s;
     transform: none;
     &::before {

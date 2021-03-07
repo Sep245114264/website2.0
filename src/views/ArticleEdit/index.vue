@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.editor-content /deep/ .ant-form-item-control {
+.editor-content:deep(.ant-form-item-control) {
   z-index: 0;
 }
 .article-edit {
@@ -102,10 +102,10 @@ export default {
   overflow: hidden;
 }
 .article-edit__body {
-  /deep/ .el-form-item__content {
+  :deep(.el-form-item__content) {
     margin-left: 60px;
   }
-  /deep/ .el-input,
+  :deep(.el-input),
   .el-select {
     width: 300px;
     display: inline-block;

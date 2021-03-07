@@ -74,16 +74,16 @@ export default defineComponent({
   }
 }
 .scrollbar {
-  & /deep/ .el-scrollbar__wrap {
+  &::v-deep(.el-scrollbar__wrap) {
     max-height: 500px;
     padding-bottom: 17px;
   }
-  & /deep/ .el-scrollbar__view {
+  &::v-deep(.el-scrollbar__view) {
     padding-right: 14px;
   }
 }
 .isFullscreen {
-  & /deep/ .el-scrollbar__wrap {
+  &:deep(.el-scrollbar__wrap) {
     max-height: calc(100vh - 200px);
   }
 }

@@ -55,7 +55,7 @@ export default {
 <style lang="scss" scoped>
 .edit-input {
   font-size: 12px !important;
-  & /deep/ input {
+  &:deep(input) {
     font-family: YaHei;
     height: 23px;
     line-height: 23px;
