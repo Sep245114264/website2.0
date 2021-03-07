@@ -31,7 +31,10 @@ export default {
     return requestPromise(`${baseUrl}user/signup`, 'post', data, 'postRegister');
   },
   getColumns() {
-    return graphql(`${baseUrl}/columns/list`, 'post', '', '{getColumns{_id, name}}');
+    // return graphql(`${baseUrl}/columns/list`, 'post', '', `{getColumns(name:'vv'){_id, name,color}}`);
+    return graphql(`/api/getColumns`, 'post', '', {
+      fields: ['_id', 'color', 'name']
+    });
   },
 };
 

@@ -202,7 +202,7 @@ export default Vue.extend({
       this.hasListen = true;
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('click', this.clearCellSelect);
   },
   data() {
@@ -258,7 +258,7 @@ export default Vue.extend({
       if (Array.isArray(res) && res.length === 0) {
         res = '';
       }
-      if (res !== '' && (res || res == 0)) {
+      if (res !== '' && (res || res === 0)) {
         return res + (config.unit || '');
       } else {
         return 'N/A';
